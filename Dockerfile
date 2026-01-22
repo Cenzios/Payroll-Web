@@ -1,31 +1,23 @@
-# Stage 1: Build
+# Build stage
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies 
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy source code and build
 COPY . .
 RUN npm run build
 
-# Stage 2: Production
+# Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy build artifacts and node_modules from builder
-
 COPY --from=builder /app ./
 
-# Set environment variables
 ENV NODE_ENV=production
-ENV PORT=6070
 
-# Expose the desired port
-EXPOSE 6070
+EXPOSE 6095
 
-# Start the Next.js server
 CMD ["npm", "run", "start"]
