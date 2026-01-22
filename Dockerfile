@@ -22,10 +22,10 @@ COPY --from=builder /app ./
 
 # Set environment variables
 ENV NODE_ENV=production
-ENV PORT=6070
+ENV PORT=8085
 
 # Expose the desired port
-EXPOSE 6070
+EXPOSE 8085
 
 # Start the Next.js server
 CMD ["npm", "run", "start"]
